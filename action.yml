@@ -13,11 +13,11 @@ runs:
   using: "composite"
   steps:
     - name: Invoke-WebRequest
-        shell: pwsh
-        env: 
-          URL: https://api.github.com/meta
-          KEY_VALUE: verifiable_password_authentication
-        run: |
+      shell: pwsh
+      env: 
+         URL: https://api.github.com/meta
+         KEY_VALUE: verifiable_password_authentication
+      run: |
           try {
              $response = Invoke-WebRequest -Uri ${{ inputs.URL }} -Method Get
              
