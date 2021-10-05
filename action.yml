@@ -15,15 +15,15 @@ runs:
     - name: Invoke-WebRequest
       shell: pwsh
       env: 
-         URL: https://api.github.com/meta
-         KEY_VALUE: verifiable_password_authentication
+         URL: ${{ inputs.URL }}
+         KEY_VALUE: ${{ inputs.KEY_VALUE }}
       run: |
           try {
              $response = Invoke-WebRequest -Uri ${{ inputs.URL }} -Method Get
              
              if ($response.StatusCode -lt 300){
                  #Write-Host $response
-                 $keyValue= ConvertFrom-Json $response.Content | Select-Object -expand "${{ env.KEY_VALUE }}"
+                 $keyValue= ConvertFrom-Json $response.Content | Select-Object -expand "${{ inputs.KEY_VALUE }}"
                  if ($keyValue -like 'false') {
                     echo $keyValue              
                     exit 1
